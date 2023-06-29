@@ -39,9 +39,9 @@ app.use("/user", authenticateUser, taskRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const start = async () => {
+const start = /* async */ () => {
   try {
-    await connectDB();
+    /* await connectDB(); */
     app.listen(port, console.log(`Server is running on port ${port}`));
   } catch (error) {
     console.log(error);
