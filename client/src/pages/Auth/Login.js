@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "../UI/Modal/Modal";
+import Modal from "../../UI/Modal/Modal";
 
 export default function Login() {
   const BASE_URL = process.env.BASE_URL;
@@ -23,7 +23,7 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5000/auth/signup",
+        "http://localhost:5000/auth/login",
         userData
       );
       console.log(response);
@@ -32,7 +32,7 @@ export default function Login() {
         // Save the auth token and redirect
 
         localStorage.setItem("token", JSON.stringify(response.data.token));
-        localStorage.setItem("orderEmail", emailRef.current.value);
+        localStorage.setItem("email", emailRef.current.value);
         navigate("/orders");
       } else {
         alert("Invalid credentials");

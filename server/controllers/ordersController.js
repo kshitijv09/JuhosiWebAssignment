@@ -1,7 +1,3 @@
-/* const Task = require("../models/Task");
-const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, NotFoundError } = require("../errors/index.js"); */
-
 const connection = require("../db/connect");
 
 const getAllOrders = async (req, res) => {
@@ -19,6 +15,7 @@ const getAllOrders = async (req, res) => {
 
 const addOrder = (req, res) => {
   const {
+    user,
     orderDate,
     company,
     owner,
@@ -36,10 +33,11 @@ const addOrder = (req, res) => {
   // Validate the data (you can add your own validation logic here)
 
   // Store the data in the customer table
-  const query = `INSERT INTO customer (orderDate, company, owner, item, quantity,weight,shipmentRequest,trackingId,shipmentSize,boxCount,specification,checklistQuantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO customer (user,orderDate, company, owner, item, quantity,weight,shipmentRequest,trackingId,shipmentSize,boxCount,specification,checklistQuantity) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
   connection.query(
     query,
     [
+      user,
       orderDate,
       company,
       owner,

@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "../UI/Modal/Modal";
+import Modal from "../../UI/Modal/Modal";
 
 export default function Signup() {
   const BASE_URL = process.env.BASE_URL;
@@ -24,10 +24,8 @@ export default function Signup() {
     setLoading(true);
 
     const userData = {
-      name: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      conPass: passwordConfirmRef.current.value,
     };
 
     localStorage.setItem("username", usernameRef.current.value);
