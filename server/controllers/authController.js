@@ -3,10 +3,30 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 
 const signup = async (req, res) => {
-  const user = await User.create({ ...req.body });
+  const { username, email, password } = req.body;
 
-  const token = user.createJWT();
-  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+  // Hash the password
+  bcrypt.hash(password, 10, (err, hashedPassword) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      // Store user details in the database
+      const newUser = {
+        username,
+        email,
+        password: hashedPassword,
+      };
+      db.query("INSERT INTO users SET ?", newUser, (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: "Failed to register user" });
+        } else {
+          res.status(201).json({ message: "User registered successfully" });
+        }
+      });
+    }
+  });
 };
 
 const login = async (req, res) => {

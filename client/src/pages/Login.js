@@ -23,7 +23,7 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await axios.post(
-        `https://mernbackend-gfpl.onrender.com/auth/login`,
+        "http://localhost:5000/auth/signup",
         userData
       );
       console.log(response);
@@ -32,8 +32,8 @@ export default function Login() {
         // Save the auth token and redirect
 
         localStorage.setItem("token", JSON.stringify(response.data.token));
-
-        navigate("/tasks");
+        localStorage.setItem("orderEmail", emailRef.current.value);
+        navigate("/orders");
       } else {
         alert("Invalid credentials");
       }

@@ -32,10 +32,7 @@ export default function Signup() {
 
     localStorage.setItem("username", usernameRef.current.value);
     try {
-      await axios.post(
-        `https://mernbackend-gfpl.onrender.com/auth/signup`,
-        userData
-      );
+      await axios.post("http://localhost:5000/auth/signup", userData);
 
       navigate("/login");
     } catch (err) {
