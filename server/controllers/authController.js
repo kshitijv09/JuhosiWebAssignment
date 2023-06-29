@@ -6,7 +6,7 @@ const db = require("../db/connect");
 
 const signup = async (req, res) => {
   const { /* username, */ email, password } = req.body;
-  console.log("db is ", db);
+  //console.log("db is ", db);
   // Hash the password
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     if (err) {
@@ -35,7 +35,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   // Retrieve user details from the database
-  db.query("SELECT * FROM users WHERE email = ?", email, (err, results) => {
+  db.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "Internal server error" });

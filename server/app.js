@@ -10,7 +10,7 @@ const connectDB = require("./db/connect");
 const authenticateUser = require("./middleware/authentication");
 
 const authRouter = require("./routes/auth");
-const taskRouter = require("./routes/task");
+const orderRouter = require("./routes/orders");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -34,7 +34,7 @@ app.use(helmet());
 app.use(xss());
 
 app.use("/auth", authRouter);
-app.use("/user", authenticateUser, taskRouter);
+app.use("/user", authenticateUser, orderRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
