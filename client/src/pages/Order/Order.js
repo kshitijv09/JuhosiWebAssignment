@@ -30,7 +30,7 @@ const Order = () => {
     e.preventDefault();
 
     const userData = {
-      user: email.substring(0, email.indexOf("@")),
+      user: email,
       orderDate: orderDate.current.value,
       company: company.current.value,
       owner: owner.current.value,
@@ -72,7 +72,7 @@ const Order = () => {
 
   const checkAdminHandler = () => {
     setLoggedIn(email ? true : false);
-    if (email === "admin@gmail.com") setIsAdmin(true);
+    if (email === "admin") setIsAdmin(true);
   };
 
   useEffect(() => {
@@ -84,7 +84,6 @@ const Order = () => {
       {loggedIn ? (
         isAdmin ? (
           <div>
-            <Nav />
             <GetOrder />
           </div>
         ) : (
@@ -102,28 +101,28 @@ const Order = () => {
                 </button>
               </Alert>
             )}
-            <h1>Welcome, {localStorage.getItem("username")}</h1>
+            <h1>Welcome, {localStorage.getItem("email")}</h1>
             <div className="form-cont">
               <Card>
                 <Card.Body>
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group id="email">
+                    <Form.Group id="orderDate">
                       <Form.Label>Order Date</Form.Label>
                       <Form.Control type="date" ref={orderDate} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="company">
                       <Form.Label>Company</Form.Label>
                       <Form.Control type="text" ref={company} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="owner">
                       <Form.Label>Owner</Form.Label>
                       <Form.Control type="text" ref={owner} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="item">
                       <Form.Label>Item</Form.Label>
                       <Form.Control type="text" ref={item} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="quantity">
                       <Form.Label>Quantity</Form.Label>
                       <Form.Control
                         type="number"
@@ -132,7 +131,7 @@ const Order = () => {
                         required
                       />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="weight">
                       <Form.Label>Weight</Form.Label>
                       <Form.Control
                         type="number"
@@ -142,7 +141,7 @@ const Order = () => {
                         required
                       />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="shipmentRequest">
                       <Form.Label>Request for Shipment</Form.Label>
                       <Form.Control
                         type="text"
@@ -150,15 +149,15 @@ const Order = () => {
                         required
                       />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="trackingId">
                       <Form.Label>Tracking Id</Form.Label>
                       <Form.Control type="text" ref={trackingId} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="shipmentSize">
                       <Form.Label>Shipment Size (LXBXH)</Form.Label>
                       <Form.Control type="text" ref={shipmentSize} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="boxCount">
                       <Form.Label>Box Count</Form.Label>
                       <Form.Control
                         type="number"
@@ -168,11 +167,11 @@ const Order = () => {
                         required
                       />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="specification">
                       <Form.Label>Specification</Form.Label>
                       <Form.Control type="text" ref={specification} required />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group id="checklistQuantity">
                       <Form.Label>CheckList Quantity</Form.Label>
                       <Form.Control
                         type="text"
@@ -181,7 +180,6 @@ const Order = () => {
                       />
                     </Form.Group>
                     <Button
-                      /*  disabled={loading} */
                       className="w-100"
                       type="submit"
                       style={{ marginTop: "1.2em" }}

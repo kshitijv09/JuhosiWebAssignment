@@ -29,17 +29,9 @@ export default function Login() {
       console.log(response);
 
       if (response.status === 200) {
-        // Save the auth token and redirect
-
         localStorage.setItem("token", JSON.stringify(response.data.token));
         localStorage.setItem("email", emailRef.current.value);
-        localStorage.setItem(
-          "username",
-          emailRef.current.value.substring(
-            0,
-            emailRef.current.value.indexOf("@")
-          )
-        );
+
         navigate("/orders");
       } else {
         alert("Invalid credentials");
@@ -58,8 +50,8 @@ export default function Login() {
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" ref={emailRef} required />
+                <Form.Label>ID</Form.Label>
+                <Form.Control type="text" ref={emailRef} required />
               </Form.Group>
               <Form.Group id="password">
                 <Form.Label>Password</Form.Label>

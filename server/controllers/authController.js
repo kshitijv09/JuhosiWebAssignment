@@ -14,7 +14,7 @@ const signup = async (req, res) => {
         email,
         password: hashedPassword,
       };
-      db.query("INSERT INTO users SET ?", newUser, (err) => {
+      db.query("INSERT INTO auth SET ?", newUser, (err) => {
         if (err) {
           console.error(err);
           res.status(500).json({ error: "Failed to register user" });
@@ -29,7 +29,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  db.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
+  db.query("SELECT * FROM auth WHERE email = ?", [email], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "Internal server error" });
