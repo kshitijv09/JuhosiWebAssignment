@@ -4,12 +4,14 @@ import "./Nav.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-export default function Nav(props) {
+export default function Nav() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("email");
 
       navigate("/login");
     } catch (error) {
@@ -21,9 +23,6 @@ export default function Nav(props) {
       <div className="text-container">
         <div>
           <h1 style={{ fontSize: "1.8em" }}> TASK MANAGER APP</h1>
-        </div>
-        <div>
-          <h3 className="text">Welcome {localStorage.getItem("username")}</h3>
         </div>
       </div>
       <div className="logout-container" onClick={handleLogout}>

@@ -33,6 +33,13 @@ export default function Login() {
 
         localStorage.setItem("token", JSON.stringify(response.data.token));
         localStorage.setItem("email", emailRef.current.value);
+        localStorage.setItem(
+          "username",
+          emailRef.current.value.substring(
+            0,
+            emailRef.current.value.indexOf("@")
+          )
+        );
         navigate("/orders");
       } else {
         alert("Invalid credentials");

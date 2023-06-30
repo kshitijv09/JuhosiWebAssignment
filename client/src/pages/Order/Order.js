@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import axios from "axios";
-import GetOrder from "../GetOrder/GetOrder";
+import GetOrder from "../../components/GetOrder/GetOrder";
+import "./Order.css";
+import { Link } from "react-router-dom";
+import Nav from "../../components/Nav/Nav";
 
 const Order = () => {
   const email = localStorage.getItem("email");
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const orderDate = useRef();
   const company = useRef();
@@ -20,7 +25,6 @@ const Order = () => {
   const boxCount = useRef();
   const specification = useRef();
   const checklistQuantity = useRef();
-  //const orderDate=useRef()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,9 +52,22 @@ const Order = () => {
           Authorization: JSON.parse(localStorage.getItem("token")),
         },
       });
+      setAlert(true);
     } catch (e) {
       console.error("Error adding document: ", e.response);
     }
+    orderDate.current.value = "";
+    company.current.value = "";
+    owner.current.value = "";
+    item.current.value = "";
+    quantity.current.value = "";
+    weight.current.value = "";
+    shipmentRequest.current.value = "";
+    trackingId.current.value = "";
+    shipmentSize.current.value = "";
+    boxCount.current.value = "";
+    specification.current.value = "";
+    checklistQuantity.current.value = "";
   };
 
   const checkAdminHandler = () => {
@@ -67,83 +84,121 @@ const Order = () => {
       {loggedIn ? (
         isAdmin ? (
           <div>
+            <Nav />
             <GetOrder />
           </div>
         ) : (
           <div>
-            <h1>Welcome, Customer!</h1>
-            <Card>
-              <Card.Body>
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group id="email">
-                    <Form.Label>Order Date</Form.Label>
-                    <Form.Control type="date" ref={orderDate} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Company</Form.Label>
-                    <Form.Control type="text" ref={company} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Owner</Form.Label>
-                    <Form.Control type="text" ref={owner} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Item</Form.Label>
-                    <Form.Control type="text" ref={item} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Quantity</Form.Label>
-                    <Form.Control type="number" ref={quantity} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Weight</Form.Label>
-                    <Form.Control type="number" ref={weight} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Request for Shipment</Form.Label>
-                    <Form.Control type="text" ref={shipmentRequest} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Tracking Id</Form.Label>
-                    <Form.Control type="text" ref={trackingId} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Shipment Size</Form.Label>
-                    <Form.Control type="text" ref={shipmentSize} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Box Count</Form.Label>
-                    <Form.Control type="number" ref={boxCount} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>Specification</Form.Label>
-                    <Form.Control type="text" ref={specification} required />
-                  </Form.Group>
-                  <Form.Group id="password">
-                    <Form.Label>CheckList Quantity</Form.Label>
-                    <Form.Control
-                      type="text"
-                      ref={checklistQuantity}
-                      required
-                    />
-                  </Form.Group>
-                  <Button
-                    /*  disabled={loading} */
-                    className="w-100"
-                    type="submit"
-                    style={{ marginTop: "1.2em" }}
-                  >
-                    SUBMIT
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
+            <Nav />
+            {alert && (
+              <Alert variant="primary">
+                Order submitted successfully!
+                <button
+                  onClick={() => {
+                    setAlert(false);
+                  }}
+                >
+                  Ok
+                </button>
+              </Alert>
+            )}
+            <h1>Welcome, {localStorage.getItem("username")}</h1>
+            <div className="form-cont">
+              <Card>
+                <Card.Body>
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group id="email">
+                      <Form.Label>Order Date</Form.Label>
+                      <Form.Control type="date" ref={orderDate} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Company</Form.Label>
+                      <Form.Control type="text" ref={company} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Owner</Form.Label>
+                      <Form.Control type="text" ref={owner} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Item</Form.Label>
+                      <Form.Control type="text" ref={item} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Quantity</Form.Label>
+                      <Form.Control
+                        type="number"
+                        ref={quantity}
+                        pattern="[0-9]*"
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Weight</Form.Label>
+                      <Form.Control
+                        type="number"
+                        ref={weight}
+                        min="0"
+                        step="1"
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Request for Shipment</Form.Label>
+                      <Form.Control
+                        type="text"
+                        ref={shipmentRequest}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Tracking Id</Form.Label>
+                      <Form.Control type="text" ref={trackingId} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Shipment Size (LXBXH)</Form.Label>
+                      <Form.Control type="text" ref={shipmentSize} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Box Count</Form.Label>
+                      <Form.Control
+                        type="number"
+                        ref={boxCount}
+                        min="0"
+                        step="1"
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>Specification</Form.Label>
+                      <Form.Control type="text" ref={specification} required />
+                    </Form.Group>
+                    <Form.Group id="password">
+                      <Form.Label>CheckList Quantity</Form.Label>
+                      <Form.Control
+                        type="text"
+                        ref={checklistQuantity}
+                        required
+                      />
+                    </Form.Group>
+                    <Button
+                      /*  disabled={loading} */
+                      className="w-100"
+                      type="submit"
+                      style={{ marginTop: "1.2em" }}
+                    >
+                      SUBMIT
+                    </Button>
+                  </Form>
+                </Card.Body>
+              </Card>
+            </div>
           </div>
         )
       ) : (
         <div>
-          <h1>Login</h1>
-          {/* <button onClick={handleLogin}>Login as Customer1</button> */}
+          <Link to="/login">
+            <h1>Login</h1>
+          </Link>
         </div>
       )}
     </div>

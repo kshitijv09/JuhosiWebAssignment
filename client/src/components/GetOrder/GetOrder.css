@@ -1,0 +1,34 @@
+.table-cont {
+  width: 50%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cell {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.table thead tr {
+  border-bottom: 2px solid black;
+  border-right: 1px solid black;
+  font-weight: 500;
+  background-color: #a0bff9;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.table td:last-child {
+  border-right: none;
+}

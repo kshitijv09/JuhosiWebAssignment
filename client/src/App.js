@@ -12,8 +12,6 @@ function App() {
     { path: "/signup", element: <Signup /> },
     { path: "/login", element: <Login /> },
     { path: "/orders", element: <Order /> },
-    /*  { path: "/tasks", element: <Task /> },
-    { path: "/tasks/:id", element: <TaskDetail /> }, */
   ]);
   return <RouterProvider router={router} />;
 }

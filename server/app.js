@@ -6,7 +6,6 @@ const cors = require("cors");
 require("dotenv").config();
 require("express-async-errors");
 
-const connectDB = require("./db/connect");
 const authenticateUser = require("./middleware/authentication");
 
 const authRouter = require("./routes/auth");
@@ -25,8 +24,8 @@ const xss = require("xss-clean");
 app.use(express.json());
 app.use(
   rateLimiter({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 100,
   })
 );
 app.use(cors());
@@ -39,9 +38,8 @@ app.use("/user", authenticateUser, orderRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const start = /* async */ () => {
+const start = () => {
   try {
-    /* await connectDB(); */
     app.listen(port, console.log(`Server is running on port ${port}`));
   } catch (error) {
     console.log(error);
