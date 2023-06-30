@@ -22,7 +22,7 @@ export default function Nav() {
     <div className="nav-bar">
       <div className="text-container">
         <div>
-          <h1 style={{ fontSize: "1.8em" }}> TASK MANAGER APP</h1>
+          <h1 style={{ fontSize: "1.8em" }}> ORDER MANAGER APP</h1>
         </div>
       </div>
       <div className="logout-container" onClick={handleLogout}>

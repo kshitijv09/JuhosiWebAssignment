@@ -27,7 +27,10 @@ export default function Signup() {
     };
 
     try {
-      await axios.post("http://localhost:5000/auth/signup", userData);
+      await axios.post(
+        `https://${process.env.REACT_APP_BASE_URL}/auth/signup`,
+        userData
+      );
 
       navigate("/login");
     } catch (err) {

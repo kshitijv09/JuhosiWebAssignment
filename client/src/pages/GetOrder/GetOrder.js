@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Nav from "../Nav/Nav";
+import Nav from "../../components/Nav/Nav";
 import "./GetOrder.css";
 
 export default function GetOrder() {
@@ -15,11 +15,14 @@ export default function GetOrder() {
   });
 
   const fetchTask = async () => {
-    const response = await axios.get("http://localhost:5000/user/orders", {
-      headers: {
-        Authorization: JSON.parse(localStorage.getItem("token")),
-      },
-    });
+    const response = await axios.get(
+      `https://${process.env.REACT_APP_BASE_URL}/user/orders`,
+      {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("token")),
+        },
+      }
+    );
     setOrders(response.data);
   };
 

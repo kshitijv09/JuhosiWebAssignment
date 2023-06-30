@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import axios from "axios";
-import GetOrder from "../../components/GetOrder/GetOrder";
+import GetOrder from "../GetOrder/GetOrder";
 import "./Order.css";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
@@ -46,12 +46,16 @@ const Order = () => {
     };
 
     try {
-      console.log("User data is", userData);
-      await axios.post("http://localhost:5000/user/add_order", userData, {
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("token")),
-        },
-      });
+      //console.log("User data is", userData);
+      await axios.post(
+        `https://${process.env.REACT_APP_BASE_URL}/user/add_order`,
+        userData,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("token")),
+          },
+        }
+      );
       setAlert(true);
     } catch (e) {
       console.error("Error adding document: ", e.response);

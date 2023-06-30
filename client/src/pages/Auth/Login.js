@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Modal from "../../UI/Modal/Modal";
 
 export default function Login() {
-  const BASE_URL = process.env.BASE_URL;
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -23,7 +22,7 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5000/auth/login",
+        `https://${process.env.REACT_APP_BASE_URL}/auth/login`,
         userData
       );
       console.log(response);
